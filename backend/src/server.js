@@ -49,6 +49,7 @@
 
 
 import express from "express";
+import cookieParser from 'cookie-parser';
 import path from "path";
 
 import authRoutes from "./routes/auth.route.js";
@@ -59,7 +60,10 @@ import { ENV } from "./lib/env.js";
 const app = express();
 const __dirname = path.resolve();
 
+// const PORT = ENV.PORT || 3000
+
 app.use(express.json());
+app.use(cookieParser())
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -77,7 +81,7 @@ if (ENV.NODE_ENV === "production") {
 }
 
 // Use ENV.PORT properly
-const PORT = ENV.PORT || 5000;
+const PORT = ENV.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
