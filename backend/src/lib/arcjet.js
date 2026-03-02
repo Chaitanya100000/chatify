@@ -31,3 +31,33 @@ const aj = arcjet({
 });
 
 export default aj;
+
+
+
+
+// import arcjet, { shield, detectBot, slidingWindow } from "@arcjet/node";
+// import { ENV } from "./env.js";
+
+// const isProduction = ENV.NODE_ENV === "production";
+
+// const aj = arcjet({
+//   key: ENV.ARCJET_KEY,
+//   rules: [
+//     shield({ mode: isProduction ? "LIVE" : "DRY_RUN" }),
+
+//     detectBot({
+//       mode: isProduction ? "LIVE" : "DRY_RUN",
+//       allow: [
+//         "CATEGORY:SEARCH_ENGINE",
+//       ],
+//     }),
+
+//     slidingWindow({
+//       mode: isProduction ? "LIVE" : "DRY_RUN",
+//       max: 100,
+//       interval: 60,
+//     }),
+//   ],
+// });
+
+// export default aj;
