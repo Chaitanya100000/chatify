@@ -4,9 +4,10 @@ import toast from "react-hot-toast";
 
 export const useAuthStore = create((set) => ({
   authUser: null,
+  onlineUsers: [],
   isCheckingAuth: true,
   isSigningUp: false,
-  isLogginIn: false,
+  isLoggingIn: false,
 
   checkAuth: async () => {
     try {
@@ -34,7 +35,7 @@ export const useAuthStore = create((set) => ({
     }
   },
   login: async (data) => {
-    set({ isLogginIn: true });
+    set({ isLoggingIn: true });
     try {
       const res = await axiosInstance.post("/auth/login", data);
       set({ authUser: res.data });
@@ -43,7 +44,7 @@ export const useAuthStore = create((set) => ({
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
-      set({ isLogginIn: false });
+      set({ isLoggingIn: false });
     }
   },
   logout: async () => {
@@ -54,6 +55,34 @@ export const useAuthStore = create((set) => ({
     } catch (error) {
       toast.error("Error logging out");
       console.log("Logout error", error);
+    }
+  },
+
+  // updateProfile: async(data) => {
+  //   try {
+  //     const res = await axiosInstance.put("/auth/update-profile", data)
+  //     set ({authUser: res.data})
+  //     toast.loading("Uploading image...");
+  //     toast.success("Profile updated successfully")
+  //   } catch (error) {
+  //     console.log("Error in update profile",error)
+  //     toast.error(error.response.data.message)
+  //   }
+  // }
+  updateProfile: async (data) => {
+    const promise = axiosInstance.put("/auth/update-profile", data);
+
+    toast.promise(promise, {
+      loading: "Uploading image...",
+      success: "Profile updated successfully 🎉",
+      error: "Failed to update profile",
+    });
+
+    try {
+      const res = await promise;
+      set({ authUser: res.data });
+    } catch (error) {
+      console.log("Error in update profile", error);
     }
   },
 }));
