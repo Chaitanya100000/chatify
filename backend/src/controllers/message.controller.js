@@ -53,10 +53,13 @@ export const sendMessages = async (req, res) => {
     }
 
     let imageUrl;
+    // upload base64 image to cloudinary
     if (image) {
-      // upload base64 image to cloudinary
-      const uploadResponse = await cloudinary.uploader.upload(image);
-      imageUrl = uploadResponse.secure.url;
+      const uploadResponse = await cloudinary.uploader.upload(image, {
+        folder: "chatify-messages",
+      });
+
+      imageUrl = uploadResponse.secure_url;
     }
 
     const newMessage = new Message({
