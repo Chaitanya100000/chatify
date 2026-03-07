@@ -7,12 +7,14 @@ import NoChatsFound from './NoChatsFound';
 const ChatList = () => {
   const { getMyChatPartners, chats, isUsersLoading, setSelectedUser } = useChatStore();
   const {onlineUsers} = useAuthStore();
+  
   useEffect(() => {
     getMyChatPartners()
   }, [getMyChatPartners])
 
   if (isUsersLoading) return <UsersLoadingSkeleton />
   if (chats.length === 0) return <NoChatsFound />
+
   return (
     <>
       {chats.map(chat => (
