@@ -3,8 +3,6 @@ import arcjet, { shield, detectBot, slidingWindow } from "@arcjet/node";
 import { ENV } from "./env.js";
 
 const aj = arcjet({
-  // Get your site key from https://app.arcjet.com and set it as an environment
-  // variable rather than hard coding.
   key: ENV.ARCJET_KEY,
   rules: [
     // Shield protects your app from common attacks e.g. SQL injection
@@ -23,7 +21,7 @@ const aj = arcjet({
     }),
     // Create a token bucket rate limit. Other algorithms are supported.
     slidingWindow({
-      mode: "LIVE",
+      mode: "LIVE", // Blocks requests. Use "DRY_RUN" to log only
       max: 100,
       interval: 60,
     }),
@@ -31,33 +29,3 @@ const aj = arcjet({
 });
 
 export default aj;
-
-
-
-
-// import arcjet, { shield, detectBot, slidingWindow } from "@arcjet/node";
-// import { ENV } from "./env.js";
-
-// const isProduction = ENV.NODE_ENV === "production";
-
-// const aj = arcjet({
-//   key: ENV.ARCJET_KEY,
-//   rules: [
-//     shield({ mode: isProduction ? "LIVE" : "DRY_RUN" }),
-
-//     detectBot({
-//       mode: isProduction ? "LIVE" : "DRY_RUN",
-//       allow: [
-//         "CATEGORY:SEARCH_ENGINE",
-//       ],
-//     }),
-
-//     slidingWindow({
-//       mode: isProduction ? "LIVE" : "DRY_RUN",
-//       max: 100,
-//       interval: 60,
-//     }),
-//   ],
-// });
-
-// export default aj;
