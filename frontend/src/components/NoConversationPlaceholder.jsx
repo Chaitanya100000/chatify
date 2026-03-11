@@ -1,5 +1,4 @@
-import { MessageCircleIcon } from 'lucide-react'
-import React from 'react'
+import { MessageCircleIcon } from "lucide-react";
 
 const NoConversationPlaceholder = () => {
   return (
@@ -12,7 +11,7 @@ const NoConversationPlaceholder = () => {
         Choose a contact from the sidebar to start chatting or continue a previous conversation.
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default NoConversationPlaceholder
+export default NoConversationPlaceholder;
